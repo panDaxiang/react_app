@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import InfiniteScrollWithHeight from './stories/InfiniteScrollWithHeight'
-import PullDownToRefreshInfScroll from './stories/PullDownToRefreshInfScroll'
-import ScrollableTargetInfScroll from './stories/ScrollableTargetInfScroll'
-import ScrolleableTop from './stories/ScrolleableTop'
-import WindowInfiniteScrollComponent from './stories/WindowInfiniteScrollComponent'
+import InfiniteScrollWithHeight from './pages/stories/InfiniteScrollWithHeight'
+import PullDownToRefreshInfScroll from './pages/stories/PullDownToRefreshInfScroll'
+import ScrollableTargetInfScroll from './pages/stories/ScrollableTargetInfScroll'
+import ScrolleableTop from './pages/stories/ScrolleableTop'
+import WindowInfiniteScrollComponent from './pages/stories/WindowInfiniteScrollComponent'
 
 import LongPage from '@/pages/longPage'
 
