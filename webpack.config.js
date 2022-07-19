@@ -1,6 +1,9 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+const MyPlugin = require('./myPlugin.ts')
 
 const resolve = url => path.resolve(__dirname, url)
 
@@ -9,7 +12,10 @@ const port = 5000
 module.exports = {
   stats: 'errors-only',
   mode: 'development',
-  entry: resolve('./src/index.tsx'),
+  devtool: 'source-map',
+  entry: {
+    index: { import: './src/index.tsx', runtime: 'solid-runtime' } 
+  },
   output: {
     filename: 'js/[name].[contenthash:5].js',
     chunkFilename: 'js/[name].chunk.[contenthash:5].js',
@@ -63,7 +69,9 @@ module.exports = {
       // 指定生成的文件所依赖的模板
       template: resolve('./index.html'),
     }),
-    new FriendlyErrorsWebpackPlugin()
+    new FriendlyErrorsWebpackPlugin(),
+    new MyPlugin(),
+    new CleanWebpackPlugin()
   ],
   devServer: {
     port,

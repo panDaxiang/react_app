@@ -1,22 +1,28 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
+import store from './store'
 
-import InfiniteScrollWithHeight from './pages/stories/InfiniteScrollWithHeight'
-import PullDownToRefreshInfScroll from './pages/stories/PullDownToRefreshInfScroll'
-import ScrollableTargetInfScroll from './pages/stories/ScrollableTargetInfScroll'
-import ScrolleableTop from './pages/stories/ScrolleableTop'
-import WindowInfiniteScrollComponent from './pages/stories/WindowInfiniteScrollComponent'
-
-import LongPage from '@/pages/longPage'
 
 const App: FC = () => {
-  // return <InfiniteScrollWithHeight />
-  // return <PullDownToRefreshInfScroll />
-  // return <ScrollableTargetInfScroll />
-  // return <ScrolleableTop />
-  // return <WindowInfiniteScrollComponent />
+  const [count, setCount] = useState(0)
 
-  return <LongPage />
+  useEffect(() => {
+    store.subscribe(() => {
+      console.log(store.getState())
+    })
+  }, [])
+
+  useEffect(() => {
+    store.dispatch({
+      type: 'count_change',
+      data: count
+    })
+  }, [count])
+
+  
+  return <div>
+    <button onClick={() => setCount(count + 1)}>+ 1</button>{count}
+  </div>
 }
 
 createRoot(document.getElementById('root')).render(<App />)
