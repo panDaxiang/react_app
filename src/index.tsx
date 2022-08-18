@@ -1,28 +1,44 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useTransition, useDeferredValue } from 'react'
 import { createRoot } from 'react-dom/client'
-import store from './store'
+import { flushSync } from 'react-dom'
 
 
 const App: FC = () => {
-  const [count, setCount] = useState(0)
+  const [inputValue, setInputValue] = useState('')
+  const [arr, setArr] = useState<string[]>(new Array(1000).fill('合肥大智慧'))
+  const [isPending, startTransition] = useTransition()
+  const [keyword, setKeyword] = useState('')
 
-  useEffect(() => {
-    store.subscribe(() => {
-      console.log(store.getState())
+  // const query = useDeferredValue(inputValue)
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value)
+
+    startTransition(() => {
+      setKeyword(e.target.value)
     })
-  }, [])
+  }
 
-  useEffect(() => {
-    store.dispatch({
-      type: 'count_change',
-      data: count
-    })
-  }, [count])
 
+  const reg = new RegExp(keyword, 'gi')
   
   return <div>
-    <button onClick={() => setCount(count + 1)}>+ 1</button>{count}
+    <input type="text" onChange={handleInputChange} value={inputValue} />
+    <button>渲染列表</button>
+
+    <ul>
+      {
+        arr.map((item, index) => {
+          return <li key={index} dangerouslySetInnerHTML={{ __html: item?.replace(reg, `<span style="color: red">$&</span>`) }}></li>
+        })
+      }
+      <li></li>
+    </ul>
+
   </div>
 }
 
-createRoot(document.getElementById('root')).render(<App />)
+const root = 
+createRoot(document.getElementById('root'))
+
+root.render(<App />)

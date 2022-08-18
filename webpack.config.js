@@ -75,6 +75,9 @@ module.exports = {
   ],
   devServer: {
     port,
-    hot: true
+    hot: true,
+    client: {
+      logging: 'none'
+    }
   }
 }
