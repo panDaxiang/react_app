@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useTransition, useDeferredValue } from 'react'
 import { createRoot } from 'react-dom/client'
-import { flushSync } from 'react-dom'
+import TestMiniRedux from './pages/TestMiniRedux'
 
 const Input =  ({ onChange, value }) => {
   useEffect(() => {
@@ -9,8 +9,7 @@ const Input =  ({ onChange, value }) => {
   return <input type="text" onChange={onChange} value={value} />
 }
 
-
-const App: FC = () => {
+const Test1: FC = () => {
   const [inputValue, setInputValue] = useState('')
   const [arr, setArr] = useState<string[]>(new Array(1000).fill('合肥大智慧'))
   const [isPending, startTransition] = useTransition()
@@ -48,12 +47,10 @@ const App: FC = () => {
   </div>
 }
 
-const root = 
-createRoot(document.getElementById('root'))
+const App = () => {
+  return <div>
+    <TestMiniRedux />
+  </div>
+}
 
-root.render(<App />)
-
-
-
-export const a = /*#__PURE__*/123;
-console.log(a + 1)
+createRoot(document.getElementById('root')).render(<App />)
