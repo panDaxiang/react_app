@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useTransition, useDeferredValue } from 'react'
+import { FC, useEffect, useState, useTransition } from 'react'
 import { createRoot } from 'react-dom/client'
 import TestMiniRedux from './pages/TestMiniRedux'
 

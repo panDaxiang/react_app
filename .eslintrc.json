@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    //自动发现React的版本，从而进行规范react代码
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhuastive-deps": "off",
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off"
+  }
+}

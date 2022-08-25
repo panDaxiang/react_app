@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import useImmer from './useImmer'
 import { Draft } from 'immer';
 import PubSub from 'pubsub-js'
@@ -16,7 +16,7 @@ function createMiniStore<T>(defaultState: T){
 
   const defaultDispatch: Dispatch = () => {};
 
-  const _ctx = createContext({
+  const ctx = createContext({
     getState: () => defaultState,
     dispatch: defaultDispatch,
   });
@@ -37,7 +37,7 @@ function createMiniStore<T>(defaultState: T){
       dispatch
     }), [])
 
-    return <_ctx.Provider value={store}>{children}</_ctx.Provider>;
+    return <ctx.Provider value={store}>{children}</ctx.Provider>;
   }
 
   /** 
@@ -46,7 +46,7 @@ function createMiniStore<T>(defaultState: T){
    * @returns 返回状态
    */
   function useSelector<K>(selector: (state: T) => K) {
-    const store = useContext(_ctx);
+    const store = useContext(ctx);
     if (store === undefined) throw new Error('useSelector使用必须在Provider内部');
     const forceUpdate = useForceUpdate();
     const selectorRef = useRef(selector)
@@ -77,7 +77,7 @@ function createMiniStore<T>(defaultState: T){
    * @description 返回一个dispatch，和useImmer的update功能一样
    */
   function useDispatch(): Dispatch{
-    const store = useContext(_ctx);
+    const store = useContext(ctx);
     if (store === undefined) throw new Error('useDispatch使用必须在Provider内部');
     return store.dispatch
   }

@@ -10,7 +10,6 @@ const resolve = url => path.resolve(__dirname, url)
 const port = 5000
 
 module.exports = {
-  stats: 'errors-only',
   mode: 'development',
   devtool: 'source-map',
   entry: {
@@ -69,9 +68,9 @@ module.exports = {
       // 指定生成的文件所依赖的模板
       template: resolve('./index.html'),
     }),
-    new FriendlyErrorsWebpackPlugin(),
+    // new FriendlyErrorsWebpackPlugin(),
     new MyPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ],
   devServer: {
     port,
