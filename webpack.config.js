@@ -68,7 +68,7 @@ module.exports = {
       // 指定生成的文件所依赖的模板
       template: resolve('./index.html'),
     }),
-    // new FriendlyErrorsWebpackPlugin(),
+    new FriendlyErrorsWebpackPlugin(),
     new MyPlugin(),
     new CleanWebpackPlugin(),
   ],
@@ -76,7 +76,8 @@ module.exports = {
     port,
     hot: true,
     client: {
-      logging: 'none'
-    }
-  }
+      progress: true,
+    },
+  },
+  stats: 'errors-only'
 }
