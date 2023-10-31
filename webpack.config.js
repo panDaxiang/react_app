@@ -41,7 +41,12 @@ module.exports = {
         }
       },
       {
-        test: /\.(css|less)$/,
+        test: /\.css$/,
+        // include: resolve('./src'),
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.less$/,
         include: resolve('./src'),
         use: ['style-loader', 'css-loader', 'less-loader']
       },
