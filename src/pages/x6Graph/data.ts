@@ -73,7 +73,7 @@ export const data = {
             },
           },
           position: {
-            distance: 0.5,
+            distance: -40,
           },
         }
       ],
@@ -119,7 +119,7 @@ export const data = {
               fill: '#128bed',
             },
           },
-          position: -30,
+          position: -40,
         }
       ],
       attrs: {

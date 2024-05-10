@@ -1,10 +1,12 @@
 import { memo, useEffect, useRef } from 'react'
 
 import { Graph } from '@antv/x6'
+import { throttle } from 'lodash'
 // import { Snapline } from '@antv/x6-plugin-snapline'
 // import { Button } from 'antd'
 
 import { data } from './data'
+import { calculateLabelDistance } from './utils'
 
 const commonAttrs = {
   body: {
@@ -56,25 +58,11 @@ const X6Graph = () => {
       }
     })
 
-    // graph.addNode({
-    //   shape: 'rect',
-    //   x: 10,
-    //   y: 10,
-    //   width: 100,
-    //   height: 40,
-    //   label: 'rect',
-    //   attrs: commonAttrs,
-    // })
-
     graph.fromJSON(data)
     graph.centerContent()
-    // graph.use(
-    //   new Snapline({
-    //     enabled: true,
-    //   }),
-    // )
 
-    graph.on('node:moved', ({ e, x, y, node, view }) => {
+    // 通过监听移动，设置label位置
+    graph.on('node:moving', throttle(({ node }) => {
 
       const id = node.id
       /** 获取所有的节点 */
@@ -84,32 +72,42 @@ const X6Graph = () => {
       // const edges = graph.getEdges()
       // console.log(edges);
 
-      // const id = node.id
       /** 获取节点的边 */
       const edges = graph.getConnectedEdges(id, { deep: true })
       /** 跟新边需要通过edge设置 */
       edges.forEach(edge => {
-        // @ts-ignore
-        const source = graph.getCellById(edge.source.cell)
-        const target = edge.target
+        /** 起点 */
+        const sourcePoint =  edge.getSourcePoint()
+        /** 终点 */
+        const targetPoint = edge.getTargetPoint()
 
-        console.log(source)
+        /** 获取之前的label属性 */
+        const labels = edge.getLabels()
+        /** 获取路径点, 如果存在根据坐标点，计算label位置 */
+        const vertices =  edge.getVertices()
+
         // @ts-ignore
-        // console.log(graph.getCellById(source.cell
-        // ), target);
+        const distance: number = labels[0].position.distance ?? labels[0].position
+
+        const newDistance = calculateLabelDistance(sourcePoint, targetPoint, vertices, distance);
+
+        /** 设置新的labels属性 */
+        edge.setLabels({
+          attrs: {
+            label: labels[0].attrs.label,
+          },
+          position: {
+            distance: newDistance + 10,
+          }
+        })
       })
-    })
+    }, 100))
 
     graphRef.current = graph
   }, [])
 
   return <div>
     <div ref={containerRef} id="container"></div>
-
-    {/* <Button onClick={() => {
-      const json = graphRef.current.toJSON()
-      console.log(json);
-    }}>导出json</Button> */}
   </div>
 }
 
