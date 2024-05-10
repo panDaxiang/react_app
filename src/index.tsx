@@ -1,13 +1,12 @@
 import { createRoot } from 'react-dom/client'
+import X6Graph from './pages/x6Graph'
 
-import AgGridTable from '@/pages/agGridTable'
-import {enableMapSet} from "immer"
-
-enableMapSet()
+import './style.css'
 
 const App = () => {
+
   return <div>
-    <AgGridTable />
+    <X6Graph />
   </div>
 }
 

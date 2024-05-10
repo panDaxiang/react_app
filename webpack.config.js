@@ -34,16 +34,17 @@ module.exports = {
     rules: [
       {
         test: /\.(jsx?|tsx?)$/,
-        loader: 'babel-loader',
+        loader: 'esbuild-loader',
         include: resolve('./src'),
         options: {
-          cacheDirectory: true
+          // cacheDirectory: true,
+          target: 'es2015'
         }
       },
       {
         test: /\.css$/,
         // include: resolve('./src'),
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader', { loader: 'esbuild-loader', options: { minify: true } }]
       },
       {
         test: /\.less$/,
@@ -67,7 +68,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // 生成页面title标题， <%=htmlWebpackPlugin.options.title%>在html这样使用
-      title: 'react',
+      title: 'react_demo',
       // 生成html的文件名
       filename: 'index.html',
       // 指定生成的文件所依赖的模板

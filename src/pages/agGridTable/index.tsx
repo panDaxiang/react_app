@@ -46,7 +46,6 @@ const TablePage = () => {
         gridRef.current?.columnApi.applyColumnState(columnState)
       }
     }
-    
   })
 
   return <div className="ag-theme-alpine" style={{ height: '100vh', width: '100%', padding: '10px 20px' }}>
