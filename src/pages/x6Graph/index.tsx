@@ -62,7 +62,7 @@ const X6Graph = () => {
     graph.centerContent()
 
     // 通过监听移动，设置label位置
-    graph.on('node:moving', throttle(({ node }) => {
+    graph.on('node:moving', ({ node }) => {
 
       const id = node.id
       /** 获取所有的节点 */
@@ -92,16 +92,16 @@ const X6Graph = () => {
         const newDistance = calculateLabelDistance(sourcePoint, targetPoint, vertices, distance);
 
         /** 设置新的labels属性 */
-        edge.setLabels({
-          attrs: {
-            label: labels[0].attrs.label,
-          },
-          position: {
-            distance: newDistance + 10,
-          }
-        })
+        // edge.attr({
+        //   attrs: {
+        //     label: labels[0].attrs.label,
+        //   },
+        //   position: {
+        //     distance: newDistance + 10,
+        //   }
+        // })
       })
-    }, 100))
+    })
 
     graphRef.current = graph
   }, [])

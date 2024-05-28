@@ -26,10 +26,10 @@ export const calculateLabelDistance = (sourcePoint: Point, targetPoint: Point, v
     /** 根据distance判断依据起始点还是终点来计算距离 */
     if (distance < 0) {
       return -calculateCenterDistance(vertices[1], targetPoint)
-    }else if(distance < 1){
-      // 此时是设置了百分比
-      return distance
     }else{
+      // 此时是设置了百分比
+    //   return distance
+    // }else{
       return calculateCenterDistance(sourcePoint, vertices[0])
     }
   }

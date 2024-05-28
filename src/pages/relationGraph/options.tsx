@@ -8,12 +8,13 @@ import waterImg from './graphWaterMark.png'
     debug: false,
     layout: {
       // 布局方式（tree树状布局/center中心布局/force自动布局）
-      layoutName: 'tree',
+      layoutName: 'smart-tree',
       // from: 'top',
       min_per_width: 180,
       min_per_height: 100,
       max_per_height: 180,
       distance_coefficient: 1,
+      levelDistance: '200'
       // max_per_height: 180,
     },
     // 默认的节点形状，0:圆形；1:矩形

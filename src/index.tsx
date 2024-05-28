@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import X6Graph from './pages/x6Graph'
+import RelationGraph from './pages/relationGraph'
 
 import './style.css'
 
